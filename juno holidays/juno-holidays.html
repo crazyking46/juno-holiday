@@ -1,0 +1,2939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Juno Holidays — Travel Is For Everyone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   JUNO HOLIDAYS — DESIGN TOKENS
+============================================= */
+:root {
+  --navy: #071A2B;
+  --midnight: #06111F;
+  --white: #FFFFFF;
+  --glacier: #8FD3FF;
+  --ice: #DDF4FF;
+  --gold: #D8A84E;
+  --gold-dim: rgba(216,168,78,0.15);
+  --glass: rgba(7,26,43,0.55);
+  --glass-light: rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.12);
+  --text-muted: rgba(255,255,255,0.55);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --wa-number: "919876543210"; /* CONFIGURE: WhatsApp number with country code, no + */
+}
+
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--midnight);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  background: none;
+}
+
+/* =============================================
+   UTILITY CLASSES
+============================================= */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--white);
+}
+
+.section-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--midnight);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: #e8b85e;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(216,168,78,0.35);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: var(--glass-light);
+  transform: translateY(-2px);
+}
+
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: #25D366;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-wa:hover {
+  background: #1fbb57;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(37,211,102,0.3);
+}
+
+/* =============================================
+   SCROLL ANIMATIONS
+============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* =============================================
+   NAVBAR
+============================================= */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  padding: 0;
+}
+
+#navbar.scrolled {
+  background: rgba(6,17,31,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  gap: 24px;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.nav-logo span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-cta {
+  flex-shrink: 0;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: rgba(6,17,31,0.97);
+  backdrop-filter: blur(20px);
+  padding: 24px;
+  z-index: 999;
+  border-top: 1px solid var(--glass-border);
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: var(--transition);
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* =============================================
+   HERO
+============================================= */
+#hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(6,17,31,0.3) 0%, rgba(6,17,31,0.55) 60%, rgba(6,17,31,0.95) 100%),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80') center/cover no-repeat;
+  transform-origin: center;
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 72px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(216,168,78,0.3);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s ease forwards;
+}
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: var(--white);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s ease forwards;
+}
+
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--glacier);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s ease forwards;
+}
+
+.hero-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 44px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.9s ease forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.1s ease forwards;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.5s ease forwards;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.4; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   STATS BAR
+============================================= */
+.stats-bar {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 28px 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 12px;
+  border-right: 1px solid var(--glass-border);
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   DESTINATIONS
+============================================= */
+#destinations {
+  background: var(--midnight);
+}
+
+.destinations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.dest-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  background: var(--navy);
+}
+
+.dest-card.wide {
+  grid-column: span 2;
+  aspect-ratio: unset;
+  min-height: 420px;
+}
+
+.dest-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.dest-card:hover .dest-img {
+  transform: scale(1.08);
+}
+
+.dest-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6,17,31,0.95) 0%, rgba(6,17,31,0.3) 55%, transparent 100%);
+  transition: var(--transition);
+}
+
+.dest-card:hover .dest-overlay {
+  background: linear-gradient(to top, rgba(6,17,31,0.98) 0%, rgba(6,17,31,0.5) 60%, rgba(6,17,31,0.1) 100%);
+}
+
+.dest-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px;
+  transform: translateY(0);
+  transition: var(--transition);
+}
+
+.dest-country {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.dest-name {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+
+.dest-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 14px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.dest-card:hover .dest-desc {
+  max-height: 80px;
+  opacity: 1;
+}
+
+.dest-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.dest-place-tag {
+  font-size: 11px;
+  color: var(--glacier);
+  background: rgba(143,211,255,0.1);
+  border: 1px solid rgba(143,211,255,0.2);
+  border-radius: 50px;
+  padding: 3px 10px;
+}
+
+.dest-action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: gap 0.3s;
+}
+
+.dest-card:hover .dest-action {
+  gap: 16px;
+}
+
+.dest-action-arrow {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dest-card:hover .dest-action-arrow {
+  background: var(--gold);
+  color: var(--midnight);
+  transform: rotate(45deg);
+}
+
+/* =============================================
+   FEATURED TRIP
+============================================= */
+#featured {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.featured-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(105deg, rgba(6,17,31,0.92) 0%, rgba(6,17,31,0.6) 50%, rgba(6,17,31,0.35) 100%),
+    url('https://images.unsplash.com/photo-1564498307-82e5e77d7d5d?w=1800&q=80') center/cover no-repeat;
+}
+
+.featured-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.featured-badge {
+  display: inline-flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.badge {
+  padding: 5px 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--glacier);
+}
+
+.featured-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.featured-tagline {
+  font-size: 18px;
+  font-style: italic;
+  font-family: var(--font-display);
+  color: var(--glacier);
+  margin-bottom: 36px;
+}
+
+.featured-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 44px;
+}
+
+.featured-place {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+}
+
+.featured-place-icon {
+  font-size: 18px;
+}
+
+.featured-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* =============================================
+   WHY JUNO
+============================================= */
+#why {
+  background: linear-gradient(to bottom, var(--midnight) 0%, var(--navy) 100%);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.why-card {
+  padding: 36px 28px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  background: var(--glass-light);
+  backdrop-filter: blur(12px);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+.why-card:hover {
+  border-color: rgba(216,168,78,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+}
+
+.why-card:hover::before {
+  transform: scaleX(1);
+}
+
+.why-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.why-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+
+.why-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* =============================================
+   EXPERIENCES
+============================================= */
+#experiences {
+  background: var(--navy);
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.experiences-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.exp-scroll-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.exp-scroll-wrapper::before,
+.exp-scroll-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.exp-scroll-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--navy), transparent);
+}
+
+.exp-scroll-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--navy), transparent);
+}
+
+.exp-track {
+  display: flex;
+  gap: 20px;
+  padding: 8px 40px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.exp-track::-webkit-scrollbar { display: none; }
+
+.exp-card {
+  flex-shrink: 0;
+  width: 220px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.exp-card:hover {
+  transform: scale(1.03);
+}
+
+.exp-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.exp-card:hover .exp-img {
+  transform: scale(1.08);
+}
+
+.exp-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6,17,31,0.9) 0%, rgba(6,17,31,0.2) 60%, transparent 100%);
+}
+
+.exp-label {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 12px;
+}
+
+.exp-emoji {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.exp-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* =============================================
+   HOW IT WORKS
+============================================= */
+#how {
+  background: var(--midnight);
+  padding: 100px 0;
+}
+
+.how-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: calc(12.5% + 36px);
+  right: calc(12.5% + 36px);
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), rgba(216,168,78,0.3), var(--gold), rgba(216,168,78,0.3));
+  background-size: 200% 100%;
+  animation: lineSweep 3s linear infinite;
+}
+
+@keyframes lineSweep {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.how-step {
+  padding: 0 24px;
+  text-align: center;
+  position: relative;
+}
+
+.how-num-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 28px;
+}
+
+.how-num-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(216,168,78,0.4);
+  animation: ringPulse 2.5s ease-in-out infinite;
+}
+
+.how-step:nth-child(2) .how-num-ring { animation-delay: 0.6s; }
+.how-step:nth-child(3) .how-num-ring { animation-delay: 1.2s; }
+.how-step:nth-child(4) .how-num-ring { animation-delay: 1.8s; }
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.4; }
+}
+
+.how-num {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.how-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.how-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* =============================================
+   ENQUIRY FORM
+============================================= */
+#enquiry {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--midnight) 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+#enquiry::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143,211,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.enquiry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.enquiry-left h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.enquiry-left p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.enquiry-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.enq-feat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+}
+
+.enq-feat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.enquiry-form-wrap {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 44px 36px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  appearance: none;
+  outline: none;
+}
+
+.form-group select option {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--glacier);
+  box-shadow: 0 0 0 3px rgba(143,211,255,0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--gold);
+  color: var(--midnight);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.form-submit:hover {
+  background: #e8b85e;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(216,168,78,0.35);
+}
+
+.form-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
+/* =============================================
+   ABOUT
+============================================= */
+#about {
+  background: var(--navy);
+  padding: 100px 0;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-image-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.about-image-wrap:hover .about-img {
+  transform: scale(1.04);
+}
+
+.about-badge {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.about-badge-text {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--glacier);
+  line-height: 1.4;
+}
+
+.about-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.about-text p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  max-width: 480px;
+}
+
+.about-highlight {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--glacier);
+  line-height: 1.3;
+  padding: 24px 0;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  margin: 32px 0;
+}
+
+/* =============================================
+   INSTAGRAM GRID
+============================================= */
+#instagram {
+  background: var(--midnight);
+  padding: 100px 0;
+}
+
+.instagram-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.insta-cell {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.insta-cell:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.insta-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.insta-cell:hover .insta-img {
+  transform: scale(1.06);
+}
+
+.insta-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6,17,31,0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.insta-cell:hover .insta-overlay {
+  opacity: 1;
+}
+
+.insta-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* =============================================
+   FAQ
+============================================= */
+#faq {
+  background: var(--navy);
+  padding: 100px 0;
+}
+
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color 0.3s;
+}
+
+.faq-q:hover {
+  color: var(--glacier);
+}
+
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--gold-dim);
+}
+
+.faq-a {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s;
+  padding-bottom: 0;
+}
+
+.faq-item.open .faq-a {
+  max-height: 200px;
+  padding-bottom: 24px;
+}
+
+/* =============================================
+   CONTACT / CTA
+============================================= */
+#contact {
+  position: relative;
+  padding: 120px 0;
+  text-align: center;
+  overflow: hidden;
+  background: var(--midnight);
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(143,211,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.contact-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.contact-brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.contact-tagline {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-link {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.social-link:hover {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  transform: translateY(-3px);
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background: var(--navy);
+  border-top: 1px solid var(--glass-border);
+  padding: 56px 0 32px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.footer-brand-sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* =============================================
+   FLOATING WHATSAPP
+============================================= */
+#wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.wa-float-label {
+  background: #25D366;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  animation: labelPop 0.5s 2s ease both;
+  opacity: 0;
+}
+
+@keyframes labelPop {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.wa-float-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 4px 24px rgba(37,211,102,0.5);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: waBounce 2s ease infinite;
+  text-decoration: none;
+}
+
+.wa-float-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 32px rgba(37,211,102,0.6);
+  animation: none;
+}
+
+@keyframes waBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* =============================================
+   DESTINATION DETAIL MODAL
+============================================= */
+#dest-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow-y: auto;
+  background: rgba(6,17,31,0.92);
+  backdrop-filter: blur(12px);
+  padding: 24px;
+}
+
+#dest-modal.open {
+  display: block;
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--navy);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(32px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--white);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.modal-close:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.modal-hero {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+}
+
+.modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--navy) 0%, transparent 60%);
+}
+
+.modal-hero-text {
+  position: absolute;
+  bottom: 36px;
+  left: 40px;
+  right: 40px;
+}
+
+.modal-hero-name {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.modal-hero-sub {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--glacier);
+  font-family: var(--font-display);
+}
+
+.modal-body {
+  padding: 40px;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+}
+
+.modal-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.modal-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.modal-place-tag {
+  padding: 7px 16px;
+  background: rgba(143,211,255,0.08);
+  border: 1px solid rgba(143,211,255,0.2);
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--glacier);
+}
+
+.modal-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.modal-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.8);
+}
+
+.modal-highlights li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--glacier);
+  flex-shrink: 0;
+}
+
+.modal-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-info-card {
+  padding: 20px;
+  background: var(--glass-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+}
+
+.modal-info-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.modal-info-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.modal-info-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+  padding-top: 36px;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1024px) {
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dest-card.wide {
+    grid-column: span 2;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .how-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px;
+  }
+
+  .how-steps::before { display: none; }
+
+  .enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .insta-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .insta-cell:first-child {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-right: 1px solid var(--glass-border); }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 72px 0; }
+
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dest-card.wide {
+    grid-column: span 1;
+    min-height: 360px;
+  }
+
+  .dest-desc {
+    max-height: 80px;
+    opacity: 1;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .insta-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .insta-cell:first-child {
+    grid-column: span 1;
+  }
+
+  .modal-hero {
+    height: 240px;
+  }
+
+  .modal-hero-name { font-size: 32px; }
+
+  .modal-body { padding: 24px; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .enquiry-form-wrap {
+    padding: 28px 20px;
+  }
+
+  .hero-buttons { flex-direction: column; }
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-ghost { text-align: center; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .insta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .exp-card { width: 170px; }
+
+  .modal-actions { flex-direction: column; }
+
+  .featured-buttons { flex-direction: column; }
+  .contact-buttons { flex-direction: column; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">JUNO <span>HOLIDAYS</span></a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#featured">Trips</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#enquiry" class="btn-primary nav-cta">Enquire Now</a>
+      <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero" class="menu-close-link">Home</a></li>
+    <li><a href="#destinations" class="menu-close-link">Destinations</a></li>
+    <li><a href="#featured" class="menu-close-link">Trips</a></li>
+    <li><a href="#about" class="menu-close-link">About</a></li>
+    <li><a href="#contact" class="menu-close-link">Contact</a></li>
+  </ul>
+  <a href="#enquiry" class="btn-primary menu-close-link" style="width:100%;justify-content:center;">Enquire Now</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">✦ Group Trips & Stranger Journeys</span>
+      <h1 class="hero-h1">TRAVEL IS<br>FOR EVERYONE.</h1>
+      <p class="hero-tagline">Come as a stranger.<br>Go as a family.</p>
+      <p class="hero-desc">Discover unforgettable destinations, meet new people and create memories that last a lifetime.</p>
+      <div class="hero-buttons">
+        <a href="#destinations" class="btn-primary">Explore Trips</a>
+        <a href="#enquiry" class="btn-ghost">Send Enquiry</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-target="500">0</span>
+        <span class="stat-label">Travellers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="6">0</span>
+        <span class="stat-label">Destinations</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="50">0</span>
+        <span class="stat-label">Trips Completed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100">0</span>
+        <span class="stat-label">Happy Travellers %</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DESTINATIONS ===== -->
+<section id="destinations" class="section">
+  <div class="container">
+    <div class="destinations-header">
+      <div>
+        <span class="section-eyebrow reveal">Where will you go</span>
+        <h2 class="section-heading reveal reveal-delay-1">WHERE WILL YOU<br>GO NEXT?</h2>
+      </div>
+      <p class="section-sub reveal reveal-delay-2">Explore destinations chosen for unforgettable experiences and memories that stay with you forever.</p>
+    </div>
+
+    <div class="destinations-grid">
+
+      <!-- Kashmir — Wide Card -->
+      <div class="dest-card wide reveal" data-dest="kashmir">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=75" alt="Kashmir" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">North India</p>
+          <h3 class="dest-name">Kashmir</h3>
+          <p class="dest-desc">Snow-covered mountains, peaceful valleys and unforgettable Himalayan experiences.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Srinagar</span>
+            <span class="dest-place-tag">Gulmarg</span>
+            <span class="dest-place-tag">Sonamarg</span>
+            <span class="dest-place-tag">Pahalgam</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore Kashmir</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kedarnath -->
+      <div class="dest-card reveal reveal-delay-1" data-dest="kedarnath">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1600023504791-75a6b2c7d44a?w=800&q=75" alt="Kedarnath" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">Uttarakhand</p>
+          <h3 class="dest-name">Kedarnath</h3>
+          <p class="dest-desc">A spiritual Himalayan journey surrounded by breathtaking mountains.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Haridwar</span>
+            <span class="dest-place-tag">Rishikesh</span>
+            <span class="dest-place-tag">Kedarnath</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Munnar -->
+      <div class="dest-card reveal" data-dest="munnar">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1590050751236-de3e3af6d77b?w=800&q=75" alt="Munnar" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">Kerala</p>
+          <h3 class="dest-name">Munnar</h3>
+          <p class="dest-desc">Misty mountains, tea plantations, waterfalls and peaceful escapes.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Tea Estates</span>
+            <span class="dest-place-tag">Waterfalls</span>
+            <span class="dest-place-tag">Viewpoints</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meghalaya -->
+      <div class="dest-card reveal reveal-delay-1" data-dest="meghalaya">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1606820854416-439b3305ff39?w=800&q=75" alt="Meghalaya" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">Northeast India</p>
+          <h3 class="dest-name">Meghalaya</h3>
+          <p class="dest-desc">Waterfalls, caves, living root bridges and untouched landscapes.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Shillong</span>
+            <span class="dest-place-tag">Cherrapunji</span>
+            <span class="dest-place-tag">Dawki</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Himachal -->
+      <div class="dest-card reveal" data-dest="himachal">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=75" alt="Himachal" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">North India</p>
+          <h3 class="dest-name">Himachal</h3>
+          <p class="dest-desc">Mountain roads, valleys, snow and unforgettable adventure.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Manali</span>
+            <span class="dest-place-tag">Kasol</span>
+            <span class="dest-place-tag">Solang</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kerala -->
+      <div class="dest-card reveal reveal-delay-1" data-dest="kerala">
+        <img class="dest-img" src="https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=800&q=75" alt="Kerala" loading="lazy">
+        <div class="dest-overlay"></div>
+        <div class="dest-body">
+          <p class="dest-country">South India</p>
+          <h3 class="dest-name">Kerala</h3>
+          <p class="dest-desc">Lush landscapes, beaches, backwaters and unforgettable journeys.</p>
+          <div class="dest-places">
+            <span class="dest-place-tag">Alleppey</span>
+            <span class="dest-place-tag">Varkala</span>
+            <span class="dest-place-tag">Wayanad</span>
+          </div>
+          <div class="dest-action">
+            <span>Explore</span>
+            <span class="dest-action-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED TRIP ===== -->
+<section id="featured">
+  <div class="featured-bg"></div>
+  <div class="container">
+    <div class="featured-content">
+      <div class="featured-badge reveal">
+        <span class="badge">Group Trip</span>
+        <span class="badge">New Friends</span>
+        <span class="badge">Himalayan</span>
+      </div>
+      <h2 class="featured-h2 reveal reveal-delay-1">KASHMIR<br>STRANGER<br>TRIP</h2>
+      <p class="featured-tagline reveal reveal-delay-2">Come alone. Leave with memories.</p>
+      <div class="featured-places reveal reveal-delay-3">
+        <div class="featured-place"><span class="featured-place-icon">📍</span> Srinagar</div>
+        <div class="featured-place"><span class="featured-place-icon">🏔️</span> Gulmarg</div>
+        <div class="featured-place"><span class="featured-place-icon">❄️</span> Sonamarg</div>
+        <div class="featured-place"><span class="featured-place-icon">🌲</span> Pahalgam</div>
+      </div>
+      <div class="featured-buttons reveal reveal-delay-4">
+        <button class="btn-primary" onclick="openDestModal('kashmir')">View Kashmir Trip</button>
+        <a class="btn-wa" href="#" onclick="openWhatsApp('I want to enquire about the Kashmir Stranger Trip'); return false;">
+          <span>💬</span> Enquire on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY JUNO ===== -->
+<section id="why" class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:20px;">
+      <span class="section-eyebrow reveal">The Juno Difference</span>
+      <h2 class="section-heading reveal reveal-delay-1">WHY TRAVEL<br>WITH JUNO?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="why-icon">🤝</span>
+        <h3 class="why-title">Meet New People</h3>
+        <p class="why-text">Travel with people from different places and turn strangers into friends along the way.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <span class="why-icon">🗺️</span>
+        <h3 class="why-title">Carefully Planned Trips</h3>
+        <p class="why-text">We plan the important details so you can focus on the experience and enjoy every moment.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <span class="why-icon">🌿</span>
+        <h3 class="why-title">Local Experiences</h3>
+        <p class="why-text">Explore destinations beyond the usual tourist checklist — real places, real moments.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <span class="why-icon">🌍</span>
+        <h3 class="why-title">Friendly Travel Community</h3>
+        <p class="why-text">Travel together, experience together and create memories that you carry for a lifetime.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <span class="why-icon">🚗</span>
+        <h3 class="why-title">Comfortable Travel</h3>
+        <p class="why-text">Thoughtfully planned transportation and stays for a smoother, more relaxed journey.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <span class="why-icon">📸</span>
+        <h3 class="why-title">Memories That Last</h3>
+        <p class="why-text">Because the best part of travelling is the story you bring home and share for years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCES ===== -->
+<section id="experiences">
+  <div class="container">
+    <div class="experiences-header">
+      <span class="section-eyebrow reveal">What awaits you</span>
+      <h2 class="section-heading reveal reveal-delay-1">TRAVEL. EXPERIENCE.<br>REMEMBER.</h2>
+    </div>
+  </div>
+  <div class="exp-scroll-wrapper">
+    <div class="exp-track" id="expTrack">
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?w=500&q=70" alt="Mountains" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🏔️</span><span class="exp-name">Mountains</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=500&q=70" alt="Snow" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">❄️</span><span class="exp-name">Snow</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&q=70" alt="Trekking" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🥾</span><span class="exp-name">Trekking</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&q=70" alt="Waterfalls" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🌊</span><span class="exp-name">Waterfalls</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=70" alt="Beaches" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🏖️</span><span class="exp-name">Beaches</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&q=70" alt="Nature" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🌲</span><span class="exp-name">Nature</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1609771960622-ba3f0b4ed9eb?w=500&q=70" alt="Spiritual" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🛕</span><span class="exp-name">Spiritual</span></div>
+      </div>
+      <div class="exp-card">
+        <img class="exp-img" src="https://images.unsplash.com/photo-1582467029786-ea16e36baa38?w=500&q=70" alt="Adventure" loading="lazy">
+        <div class="exp-overlay"></div>
+        <div class="exp-label"><span class="exp-emoji">🔥</span><span class="exp-name">Adventure</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how">
+  <div class="container">
+    <div class="how-header">
+      <span class="section-eyebrow reveal">Simple process</span>
+      <h2 class="section-heading reveal reveal-delay-1">YOUR JOURNEY<br>STARTS HERE</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-num-wrap">
+          <div class="how-num-ring"></div>
+          <div class="how-num">01</div>
+        </div>
+        <h3 class="how-title">Choose Your Destination</h3>
+        <p class="how-desc">Explore our trips and destinations. Find the one that calls to you.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-num-wrap">
+          <div class="how-num-ring"></div>
+          <div class="how-num">02</div>
+        </div>
+        <h3 class="how-title">Send Your Enquiry</h3>
+        <p class="how-desc">Tell us your preferred destination, travel date and number of travellers.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-num-wrap">
+          <div class="how-num-ring"></div>
+          <div class="how-num">03</div>
+        </div>
+        <h3 class="how-title">Talk To Us</h3>
+        <p class="how-desc">Our team will reach out and walk you through every detail of the trip.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-num-wrap">
+          <div class="how-num-ring"></div>
+          <div class="how-num">04</div>
+        </div>
+        <h3 class="how-title">Start Your Journey</h3>
+        <p class="how-desc">Get ready to travel, meet new people and create memories that last.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ENQUIRY FORM ===== -->
+<section id="enquiry">
+  <div class="container">
+    <div class="enquiry-grid">
+      <div class="enquiry-left reveal">
+        <span class="section-eyebrow">Send an enquiry</span>
+        <h2>LET'S PLAN YOUR NEXT JOURNEY</h2>
+        <p>Tell us a little about your trip. We'll get back to you on WhatsApp with all the details.</p>
+        <div class="enquiry-features">
+          <div class="enq-feat"><span class="enq-feat-dot"></span>No online payment required</div>
+          <div class="enq-feat"><span class="enq-feat-dot"></span>Enquiry goes directly to WhatsApp</div>
+          <div class="enq-feat"><span class="enq-feat-dot"></span>Group trips, solo trips, family trips</div>
+          <div class="enq-feat"><span class="enq-feat-dot"></span>Custom trips available on request</div>
+        </div>
+      </div>
+      <div class="enquiry-form-wrap reveal reveal-delay-2">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="f-name" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="f-phone" placeholder="+91 00000 00000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Destination *</label>
+            <select id="f-dest">
+              <option value="">Select destination</option>
+              <option>Kashmir</option>
+              <option>Kedarnath</option>
+              <option>Munnar</option>
+              <option>Meghalaya</option>
+              <option>Himachal</option>
+              <option>Kerala</option>
+              <option>Other / Custom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Number of Travellers *</label>
+            <input type="number" id="f-travellers" placeholder="e.g. 4" min="1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Travel Date</label>
+            <input type="date" id="f-date">
+          </div>
+          <div class="form-group">
+            <label>Travelling With</label>
+            <select id="f-with">
+              <option value="">Select type</option>
+              <option>Solo</option>
+              <option>Friends</option>
+              <option>Family</option>
+              <option>Couple</option>
+              <option>Others</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="f-msg" placeholder="Any specific requirements or questions?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitEnquiry()">
+          <span>💬</span> Send Enquiry via WhatsApp
+        </button>
+        <p class="form-note">You'll be redirected to WhatsApp to send the enquiry directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-image-wrap reveal">
+        <img class="about-img" src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=900&q=75" alt="Juno Holidays travellers" loading="lazy">
+        <div class="about-badge">
+          <p class="about-badge-text">"Come as a stranger.<br>Go as a family."</p>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-2">
+        <span class="section-eyebrow">Our story</span>
+        <h2>MORE THAN A TRIP.<br>IT'S A MEMORY.</h2>
+        <p>Juno Holidays is built around a simple idea — travel should be for everyone.</p>
+        <p>Whether you're travelling solo, with friends or joining a group of strangers, our goal is to create meaningful journeys, new friendships and unforgettable memories.</p>
+        <div class="about-highlight">
+          COME AS A STRANGER.<br>GO AS A FAMILY.
+        </div>
+        <a href="#enquiry" class="btn-primary">Plan Your Trip</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTAGRAM ===== -->
+<section id="instagram">
+  <div class="container">
+    <div class="instagram-header">
+      <span class="section-eyebrow reveal">Follow the journey</span>
+      <h2 class="section-heading reveal reveal-delay-1">TRAVEL STORIES<br>& MOMENTS</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin:16px auto 0;text-align:center;">Trip announcements, destination inspiration and travel stories from the Juno community.</p>
+    </div>
+    <div class="insta-grid reveal">
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&q=70" alt="Travel" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1531169509526-f8f1fdaa4a67?w=400&q=70" alt="Travel" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70" alt="Mountain" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&q=70" alt="Valley" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=70" alt="Nature" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1482192505345-5852535be1b1?w=400&q=70" alt="Adventure" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=400&q=70" alt="River" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-cell">
+        <img class="insta-img" src="https://images.unsplash.com/photo-1455156218388-5e61b526818b?w=400&q=70" alt="Sunrise" loading="lazy">
+        <div class="insta-overlay">📸</div>
+      </div>
+    </div>
+    <div class="insta-cta reveal">
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:40px;">
+        <span>📸</span> Follow Us on Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-header">
+      <span class="section-eyebrow reveal">Common questions</span>
+      <h2 class="section-heading reveal reveal-delay-1">HAVE QUESTIONS?</h2>
+    </div>
+    <div class="faq-inner">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is this a booking website?
+          <span class="faq-icon">+</span>
+        </button>
+        <p class="faq-a">No. This website is primarily for trip information and enquiries. All bookings and confirmations are handled by our team over WhatsApp after you send your enquiry.</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I enquire about a trip?
+          <span class="faq-icon">+</span>
+        </button>
+        <p class="faq-a">Choose a destination that interests you and fill in the enquiry form. Once you submit, you'll be redirected to WhatsApp with your details pre-filled. Send the message and our team will get back to you.</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I travel alone?
+          <span class="faq-icon">+</span>
+        </button>
+        <p class="faq-a">Yes. Our trips can be suitable for solo travellers, friends and families depending on the specific trip. Stranger group trips are a great way to travel solo while meeting new people along the way.</p>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need to make an online payment?
+          <span class="faq-icon">+</span>
+        </button>
+        <p class="faq-a">No online payment is required through this website. All payment details and arrangements are shared by our team directly, after discussing your trip requirements.</p>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I ask about a customized trip?
+          <span class="faq-icon">+</span>
+        </button>
+        <p class="faq-a">Absolutely. Mention your requirements in the message field of the enquiry form and our team will discuss the options with you and suggest a plan that suits you best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-content">
+      <span class="section-eyebrow reveal" style="display:block;text-align:center;">Let's go</span>
+      <h2 class="contact-h2 reveal reveal-delay-1">READY TO<br>TRAVEL?</h2>
+      <p class="contact-sub reveal reveal-delay-2">Your next adventure could start with one message.</p>
+      <div class="contact-buttons reveal reveal-delay-3">
+        <a href="#" onclick="openWhatsApp('Hello Juno Holidays! I would like to know more about your trips.'); return false;" class="btn-wa">
+          <span>💬</span> WhatsApp Us
+        </a>
+        <a href="#enquiry" class="btn-primary">Send an Enquiry</a>
+      </div>
+      <div class="contact-brand reveal reveal-delay-4">JUNO HOLIDAYS</div>
+      <p class="contact-tagline reveal reveal-delay-4">Travel is for everyone.</p>
+      <div class="social-links reveal reveal-delay-5">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" title="Instagram">📸</a>
+        <a href="#" onclick="openWhatsApp('Hello!'); return false;" class="social-link" title="WhatsApp">💬</a>
+        <a href="mailto:hello@junoholidays.com" class="social-link" title="Email">✉️</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">JUNO HOLIDAYS</p>
+        <p class="footer-brand-sub">Travel is for everyone. Come as a stranger, go as a family. Group trips, stranger trips, adventure trips and destination experiences.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Explore</p>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#featured">Trips</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Legal</p>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Juno Holidays. All rights reserved.</p>
+      <p class="footer-copy">Travel is for everyone.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<div id="wa-float">
+  <div class="wa-float-label">Enquire Now</div>
+  <a class="wa-float-btn" href="#" onclick="openWhatsApp('Hello Juno Holidays! I would like to enquire about a trip.'); return false;" title="WhatsApp" aria-label="Chat on WhatsApp">💬</a>
+</div>
+
+<!-- ===== DESTINATION DETAIL MODAL ===== -->
+<div id="dest-modal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeDestModal()">✕</button>
+    <div class="modal-hero">
+      <img class="modal-hero-img" id="modal-img" src="" alt="">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-text">
+        <h2 class="modal-hero-name" id="modal-name"></h2>
+        <p class="modal-hero-sub" id="modal-sub"></p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div>
+          <p class="modal-section-title">Places Covered</p>
+          <div class="modal-places" id="modal-places"></div>
+
+          <p class="modal-section-title">Trip Highlights</p>
+          <ul class="modal-highlights" id="modal-highlights"></ul>
+        </div>
+        <div class="modal-info-cards" id="modal-info"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="modal-enquiry-btn">Enquire About This Trip</button>
+        <button class="btn-wa" id="modal-wa-btn"><span>💬</span> WhatsApp Us</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== CONFIGURATION =====
+const WA_NUMBER = "918939504963"; // CONFIGURE: change this to your WhatsApp number
+
+// ===== DESTINATION DATA =====
+const destinations = {
+  kashmir: {
+    name: "Kashmir",
+    subtitle: "The Paradise of the Himalayas",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+    places: ["Srinagar", "Gulmarg", "Sonamarg", "Pahalgam"],
+    highlights: ["Snow experiences", "Himalayan landscapes", "Dal Lake", "Shikara ride", "Gulmarg cable car", "Pahalgam valleys", "Local cuisine", "Group travel experience"],
+    stay: "3 Star Hotels",
+    transport: "Private transportation throughout",
+    meals: "Breakfast & Dinner",
+    group: "Travel with fellow travellers and create new friendships"
+  },
+  kedarnath: {
+    name: "Kedarnath",
+    subtitle: "A Sacred Himalayan Journey",
+    image: "https://images.unsplash.com/photo-1600023504791-75a6b2c7d44a?w=1200&q=80",
+    places: ["Haridwar", "Rishikesh", "Kedarnath", "Devprayag"],
+    highlights: ["Kedarnath temple darshan", "Himalayan trekking", "Rishikesh ashrams", "Ganga aarti", "Chopta meadows", "Spiritual experiences", "Mountain views", "Group bonding"],
+    stay: "Comfortable stays",
+    transport: "Comfortable group transport",
+    meals: "Breakfast & Dinner",
+    group: "Spiritual journey with a close-knit group"
+  },
+  munnar: {
+    name: "Munnar",
+    subtitle: "Misty Hills & Tea Country",
+    image: "https://images.unsplash.com/photo-1590050751236-de3e3af6d77b?w=1200&q=80",
+    places: ["Munnar", "Waterfalls", "Tea Estates", "Viewpoints"],
+    highlights: ["Tea estate walks", "Eravikulam National Park", "Mattupetty Dam", "Attukal Waterfalls", "Top Station viewpoint", "Mist & valley views", "Spice gardens", "Cool weather escape"],
+    stay: "Comfortable hill resorts",
+    transport: "Private vehicle",
+    meals: "Breakfast & Dinner",
+    group: "Relaxed group travel in the hills"
+  },
+  meghalaya: {
+    name: "Meghalaya",
+    subtitle: "The Abode of Clouds",
+    image: "https://images.unsplash.com/photo-1606820854416-439b3305ff39?w=1200&q=80",
+    places: ["Shillong", "Cherrapunji", "Dawki", "Mawlynnong"],
+    highlights: ["Living root bridges", "Crystal clear Dawki river", "Nohkalikai Falls", "Mawlynnong cleanest village", "Caves & caverns", "Mawphlang sacred grove", "Northeast culture", "Group adventure"],
+    stay: "Comfortable stays",
+    transport: "Group transport",
+    meals: "Breakfast & Dinner",
+    group: "Explore the northeast with fellow adventurers"
+  },
+  himachal: {
+    name: "Himachal Pradesh",
+    subtitle: "Mountain Roads & Valleys",
+    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=1200&q=80",
+    places: ["Manali", "Kasol", "Solang Valley", "Himachal Valleys"],
+    highlights: ["Rohtang Pass snow", "Solang Valley adventure", "Kasol riverside", "Manali old town", "River rafting", "Mountain biking", "Trekking trails", "Group camping"],
+    stay: "Comfortable hotels & camps",
+    transport: "Private group vehicle",
+    meals: "Breakfast & Dinner",
+    group: "Adventure-first group travel"
+  },
+  kerala: {
+    name: "Kerala",
+    subtitle: "God's Own Country",
+    image: "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=1200&q=80",
+    places: ["Munnar", "Alleppey", "Varkala", "Wayanad"],
+    highlights: ["Alleppey houseboat", "Varkala cliffs & beach", "Tea & spice plantations", "Wayanad wildlife", "Backwater cruise", "Kochi heritage walk", "Ayurvedic experiences", "Kerala cuisine"],
+    stay: "Comfortable hotels & houseboats",
+    transport: "AC group transport",
+    meals: "Breakfast & Dinner",
+    group: "Explore the south with a warm travel group"
+  }
+};
+
+// ===== OPEN WHATSAPP =====
+function openWhatsApp(message) {
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+
+// ===== ENQUIRY FORM SUBMIT =====
+function submitEnquiry() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const dest = document.getElementById('f-dest').value;
+  const travellers = document.getElementById('f-travellers').value.trim();
+  const date = document.getElementById('f-date').value;
+  const withType = document.getElementById('f-with').value;
+  const msg = document.getElementById('f-msg').value.trim();
+
+  if (!name) { alert('Please enter your full name.'); return; }
+  if (!phone) { alert('Please enter your mobile number.'); return; }
+  if (!dest) { alert('Please select a destination.'); return; }
+  if (!travellers) { alert('Please enter the number of travellers.'); return; }
+
+  const waMsg = `Hello Juno Holidays! 🙏
+
+I would like to enquire about a trip.
+
+*Name:* ${name}
+*Mobile:* ${phone}
+*Destination:* ${dest}
+*Travellers:* ${travellers}
+*Travel Date:* ${date || 'Not specified'}
+*Travelling With:* ${withType || 'Not specified'}
+
+*Message:*
+${msg || 'No additional message.'}
+
+Please share the complete trip details. Thank you!`;
+
+  openWhatsApp(waMsg);
+}
+
+// ===== DESTINATION MODAL =====
+function openDestModal(slug) {
+  const d = destinations[slug];
+  if (!d) return;
+
+  document.getElementById('modal-img').src = d.image;
+  document.getElementById('modal-img').alt = d.name;
+  document.getElementById('modal-name').textContent = d.name;
+  document.getElementById('modal-sub').textContent = d.subtitle;
+
+  const placesEl = document.getElementById('modal-places');
+  placesEl.innerHTML = d.places.map(p => `<span class="modal-place-tag">${p}</span>`).join('');
+
+  const hlEl = document.getElementById('modal-highlights');
+  hlEl.innerHTML = d.highlights.map(h => `<li>${h}</li>`).join('');
+
+  document.getElementById('modal-info').innerHTML = `
+    <div class="modal-info-card">
+      <span class="modal-info-icon">🏨</span>
+      <p class="modal-info-label">Stay</p>
+      <p class="modal-info-value">${d.stay}</p>
+    </div>
+    <div class="modal-info-card">
+      <span class="modal-info-icon">🚗</span>
+      <p class="modal-info-label">Transportation</p>
+      <p class="modal-info-value">${d.transport}</p>
+    </div>
+    <div class="modal-info-card">
+      <span class="modal-info-icon">🍽️</span>
+      <p class="modal-info-label">Meals</p>
+      <p class="modal-info-value">${d.meals}</p>
+    </div>
+    <div class="modal-info-card">
+      <span class="modal-info-icon">🤝</span>
+      <p class="modal-info-label">Group Experience</p>
+      <p class="modal-info-value">${d.group}</p>
+    </div>
+  `;
+
+  document.getElementById('modal-enquiry-btn').onclick = () => {
+    closeDestModal();
+    document.getElementById('f-dest').value = d.name;
+    document.getElementById('enquiry').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  document.getElementById('modal-wa-btn').onclick = () => {
+    openWhatsApp(`Hello Juno Holidays! I want to enquire about the ${d.name} trip. Please share the complete trip details.`);
+  };
+
+  const modal = document.getElementById('dest-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDestModal() {
+  document.getElementById('dest-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modal on outside click
+document.getElementById('dest-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeDestModal();
+});
+
+// Destination card clicks
+document.querySelectorAll('.dest-card[data-dest]').forEach(card => {
+  card.addEventListener('click', () => openDestModal(card.dataset.dest));
+});
+
+// ===== NAVBAR =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ===== HAMBURGER MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+
+document.querySelectorAll('.menu-close-link').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===== COUNTER ANIMATION =====
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const duration = 1800;
+  const step = target / (duration / 16);
+  let current = 0;
+  const suffix = el.textContent.replace(/[0-9]/g, '');
+
+  const tick = () => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.floor(current) + (target >= 100 ? '+' : '+');
+    if (current < target) requestAnimationFrame(tick);
+    else el.textContent = target + '+';
+  };
+  tick();
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+
+// ===== FAQ ACCORDION =====
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ===== KEYBOARD ESCAPE =====
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDestModal();
+});
+</script>
+</body>
+</html>
